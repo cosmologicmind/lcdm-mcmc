@@ -202,8 +202,8 @@ These are positioned as **opportunities** rather than weaknesses.
 
 **Author**: David A. Besemer  
 **Email**: besemer@independent-research.org  
-**GitHub**: (Add username)  
-**ORCID**: (Add if available)
+**GitHub**: cosmologicmind
+**ORCID**: 0009-0001-9275-8278
 
 ---
 
