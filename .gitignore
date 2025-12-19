@@ -44,3 +44,16 @@ plots/
 # OS
 .DS_Store
 Thumbs.db
+
+# Logs
+logs/*.log
+logs/*.txt
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+
