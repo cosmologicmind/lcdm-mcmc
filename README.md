@@ -55,12 +55,20 @@ Where:
 pip3 install -r requirements.txt
 ```
 
-### 2. Test
+### 2. Download Data
+```bash
+# Download real Pantheon+ supernova data (568 KB, 1701 SNe)
+./scripts/download_data.sh
+```
+
+**Note**: Large data files are **not** in the repository. Download them locally.
+
+### 3. Test
 ```bash
 ./scripts/test_all.sh
 ```
 
-### 3. Run Analysis
+### 4. Run Analysis
 ```bash
 # Quick analysis with simulated data
 ./scripts/run_analysis.sh
@@ -72,10 +80,12 @@ python3 hubble_dipole_real.py
 python3 mcmc_comparison.py
 ```
 
-### 4. Regenerate Plots
+### 5. Regenerate Plots
 ```bash
 python3 scripts/regenerate_all_plots.py
 ```
+
+**Note**: Plots are **not** in the repository (too large). Regenerate them locally (~2 minutes).
 
 ## Project Structure
 

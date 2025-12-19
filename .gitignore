@@ -27,12 +27,35 @@ wheels/
 .ipynb_checkpoints/
 *.ipynb
 
-# Results
+# Results & Output (LARGE FILES - regenerate locally)
 results/
 plots/
 *.png
+*.jpg
+*.jpeg
 *.pdf
-*.json
+
+# Data files (LARGE - download separately)
+# Keep structure but ignore large data files
+data/*.dat
+data/*.fits
+data/*.txt
+!data/README.md
+
+# Logs (temporary, regenerate locally)
+logs/
+*.log
+
+# Paper build artifacts (regenerate with make)
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+paper/main.pdf
 
 # IDE
 .vscode/
@@ -45,15 +68,8 @@ plots/
 .DS_Store
 Thumbs.db
 
-# Logs
-logs/*.log
-logs/*.txt
-
 # Temporary files
 *.tmp
 *.temp
-
-# IDE
-.vscode/
-.idea/
+*.cache
 
