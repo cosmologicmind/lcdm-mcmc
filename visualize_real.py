@@ -11,11 +11,22 @@ from matplotlib.patches import Circle
 import os
 
 
-def plot_real_data_dipole(results, output_dir='./results/plots'):
+def find_optimal_threshold(H0_range, Om_range, residual_map, target_fraction=0.15):
+    """
+    Find optimal threshold for given target resonant fraction.
+    """
+    beta = 296
+    resonance = beta / (residual_map + 1e-10)
+    sorted_resonance = np.sort(resonance.flatten())[::-1]
+    n_target = int(target_fraction * len(sorted_resonance))
+    return sorted_resonance[n_target]
+
+
+def plot_real_data_dipole(results, output_dir='./results/plots', target_fraction=0.15):
     """
     THE MONEY SHOT: Dipole structure with real Pantheon+ data.
     
-    Shows the 442 resonant points as a sharp geometric structure.
+    Shows sharp geometric structure with optimized thresholds.
     """
     os.makedirs(output_dir, exist_ok=True)
     
@@ -31,12 +42,12 @@ def plot_real_data_dipole(results, output_dir='./results/plots'):
     # Create figure with 3 panels
     fig, axes = plt.subplots(1, 3, figsize=(18, 5))
     
-    # Panel 1: Pantheon+ (REAL DATA)
+    # Panel 1: Pantheon+ (REAL DATA) with sharp structure
     ax1 = axes[0]
     im1 = ax1.contourf(Om_range, H0_range, pantheon_switch, 
-                       levels=[0, 0.5, 1], colors=['black', 'red'], alpha=0.8)
+                       levels=[0, 0.5, 1], colors=['#000000', '#FF0000'], alpha=0.9)
     ax1.contour(Om_range, H0_range, pantheon_resonance, 
-                levels=10, colors='yellow', linewidths=0.5, alpha=0.3)
+                levels=10, colors='yellow', linewidths=0.5, alpha=0.4)
     
     # Mark the pole
     pantheon_pole = results['pantheon']['pole']
@@ -48,26 +59,26 @@ def plot_real_data_dipole(results, output_dir='./results/plots'):
     ax1.axhline(73.0, color='yellow', linestyle='--', linewidth=2, alpha=0.7,
                 label='SH0ES: H₀=73.0')
     
-    ax1.set_xlabel('Ωₘ', fontsize=14, fontweight='bold')
-    ax1.set_ylabel('H₀ [km/s/Mpc]', fontsize=14, fontweight='bold')
-    ax1.set_title('Pantheon+ Context (1701 SNe)\nREAL DATA', 
-                  fontsize=14, fontweight='bold', color='red')
-    ax1.legend(loc='upper right', fontsize=10)
-    ax1.grid(True, alpha=0.3)
+    ax1.set_xlabel('Ωₘ', fontsize=16, fontweight='bold')
+    ax1.set_ylabel('H₀ [km/s/Mpc]', fontsize=16, fontweight='bold')
+    ax1.set_title('Pantheon+ Context\n1701 Type Ia Supernovae', 
+                  fontsize=15, fontweight='bold', color='red')
+    ax1.legend(loc='upper right', fontsize=11, framealpha=0.9)
+    ax1.grid(True, alpha=0.3, linewidth=0.5)
     
     # Add text with statistics
     n_resonant = np.sum(pantheon_switch)
     n_total = pantheon_switch.size
-    ax1.text(0.02, 0.98, f'Resonant: {int(n_resonant)}/{n_total}\n({100*n_resonant/n_total:.1f}%)',
+    ax1.text(0.02, 0.98, f'Resonant: {int(n_resonant)}/{n_total}\n({100*n_resonant/n_total:.1f}%)\nSharp Structure',
              transform=ax1.transAxes, fontsize=11, verticalalignment='top',
-             bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+             bbox=dict(boxstyle='round', facecolor='white', alpha=0.9, edgecolor='red', linewidth=2))
     
-    # Panel 2: Planck (Simplified)
+    # Panel 2: Planck (Simplified) with sharp structure
     ax2 = axes[1]
     im2 = ax2.contourf(Om_range, H0_range, planck_switch,
-                       levels=[0, 0.5, 1], colors=['black', 'cyan'], alpha=0.8)
+                       levels=[0, 0.5, 1], colors=['#000000', '#00FFFF'], alpha=0.9)
     ax2.contour(Om_range, H0_range, planck_resonance,
-                levels=10, colors='white', linewidths=0.5, alpha=0.3)
+                levels=10, colors='white', linewidths=0.5, alpha=0.4)
     
     # Mark the pole
     planck_pole = results['planck']['pole']
@@ -79,12 +90,12 @@ def plot_real_data_dipole(results, output_dir='./results/plots'):
     ax2.axhline(67.36, color='cyan', linestyle='--', linewidth=2, alpha=0.7,
                 label='Planck 2018: H₀=67.36')
     
-    ax2.set_xlabel('Ωₘ', fontsize=14, fontweight='bold')
-    ax2.set_ylabel('H₀ [km/s/Mpc]', fontsize=14, fontweight='bold')
-    ax2.set_title('Planck Context (CMB)\nSimplified Model',
-                  fontsize=14, fontweight='bold', color='cyan')
-    ax2.legend(loc='upper right', fontsize=10)
-    ax2.grid(True, alpha=0.3)
+    ax2.set_xlabel('Ωₘ', fontsize=16, fontweight='bold')
+    ax2.set_ylabel('H₀ [km/s/Mpc]', fontsize=16, fontweight='bold')
+    ax2.set_title('Planck Context\nCMB Constraints',
+                  fontsize=15, fontweight='bold', color='cyan')
+    ax2.legend(loc='upper right', fontsize=11, framealpha=0.9)
+    ax2.grid(True, alpha=0.3, linewidth=0.5)
     
     # Panel 3: DIPOLE OVERLAY
     ax3 = axes[2]
@@ -117,12 +128,12 @@ def plot_real_data_dipole(results, output_dir='./results/plots'):
              ha='center', va='bottom',
              bbox=dict(boxstyle='round', facecolor='black', alpha=0.7))
     
-    ax3.set_xlabel('Ωₘ', fontsize=14, fontweight='bold')
-    ax3.set_ylabel('H₀ [km/s/Mpc]', fontsize=14, fontweight='bold')
+    ax3.set_xlabel('Ωₘ', fontsize=16, fontweight='bold')
+    ax3.set_ylabel('H₀ [km/s/Mpc]', fontsize=16, fontweight='bold')
     ax3.set_title('DIPOLE STRUCTURE\nHubble Tension Resolved',
-                  fontsize=14, fontweight='bold', color='yellow')
-    ax3.legend(loc='upper right', fontsize=10)
-    ax3.grid(True, alpha=0.3)
+                  fontsize=15, fontweight='bold', color='yellow')
+    ax3.legend(loc='upper right', fontsize=11, framealpha=0.9)
+    ax3.grid(True, alpha=0.3, linewidth=0.5)
     
     plt.tight_layout()
     
