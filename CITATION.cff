@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software or paper, please cite it as below."
+authors:
+  - family-names: "Besemer"
+    given-names: "David A."
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "Geometric Resolution of the Hubble Tension: A Latency-Free Binary Switch Approach"
+version: 1.0.0
+date-released: 2025-12-19
+url: "https://github.com/davidbesemer/lcdm-mcmc"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Besemer"
+      given-names: "David A."
+  title: "Geometric Resolution of the Hubble Tension: A Latency-Free Binary Switch Approach to Cosmological Parameter Analysis"
+  year: 2025
+  journal: "arXiv preprint"
+  notes: "In preparation"

@@ -1,0 +1,33 @@
+The standard $\Lambda$CDM cosmological model has achieved remarkable success in describing the evolution and structure of the universe \cite{Planck2018}. However, recent precision measurements have revealed a persistent discrepancy in the value of the Hubble constant $H_0$, known as the Hubble tension \cite{Riess2019,DiValentino2021}. Early-universe measurements from the Planck satellite yield $H_0 = 67.4 \pm 0.5$ km/s/Mpc \cite{Planck2018}, while local measurements using Type Ia supernovae give $H_0 = 73.0 \pm 1.0$ km/s/Mpc \cite{Riess2022}, representing a $\sim5\sigma$ discrepancy.
+
+Traditional approaches to this problem have focused on either systematic errors in observations or extensions to the $\Lambda$CDM model \cite{Verde2019,Abdalla2022}. However, these approaches rely on conventional Markov Chain Monte Carlo (MCMC) methods that represent parameter constraints as probability distributions. In this framework, the Hubble tension appears as two incompatible probability peaks, suggesting a fundamental contradiction.
+
+\subsection{Limitations of Traditional MCMC}
+
+Standard MCMC methods suffer from several inherent limitations:
+
+\begin{enumerate}
+\item \textbf{Latency}: Random walk algorithms require thousands of steps to "burn in" before converging to the target distribution, introducing significant computational overhead and convergence uncertainty.
+
+\item \textbf{Soft Boundaries}: Gaussian likelihood functions $\mathcal{L}(\theta) \propto \exp(-\chi^2/2)$ produce diffuse probability clouds rather than sharp constraints, making it difficult to identify precise parameter boundaries.
+
+\item \textbf{Probabilistic Interpretation}: The framework assumes that parameter uncertainty is fundamentally probabilistic, potentially obscuring underlying geometric structures in parameter space.
+\end{enumerate}
+
+\subsection{A New Paradigm: Binary Switch Logic}
+
+We propose a fundamentally different approach based on three core principles:
+
+\begin{enumerate}
+\item \textbf{Latency-Freedom}: Replace random walk with systematic grid scanning, eliminating burn-in phases and convergence issues.
+
+\item \textbf{Binary Clarity}: Replace soft probability distributions with sharp binary switches: a parameter set either resonates with the data (switch = 1) or it does not (switch = 0).
+
+\item \textbf{Geometric Structure}: Interpret parameter constraints as geometric manifolds in parameter space rather than probability clouds.
+\end{enumerate}
+
+This approach transforms the Hubble tension from a statistical discrepancy into a geometric structure—specifically, a dipole in cosmological parameter space where both $H_0$ values are real and valid in their respective contexts.
+
+\subsection{Paper Organization}
+
+The remainder of this paper is organized as follows: Section II presents the theoretical framework of binary switch logic and its mathematical foundation. Section III describes our methodology, including the implementation of the latency-free scanner and data analysis pipeline. Section IV presents our results, demonstrating that both Hubble constant measurements are resonant in their respective contexts. Section V discusses the implications of our findings for cosmology and parameter estimation. Section VI concludes with a summary and outlook for future work.

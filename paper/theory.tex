@@ -1,0 +1,102 @@
+\subsection{From Likelihood to Switch Function}
+
+In traditional Bayesian parameter estimation, the likelihood function for a set of parameters $\theta$ given data $D$ is typically expressed as:
+
+\begin{equation}
+\mathcal{L}(\theta|D) \propto \exp\left(-\frac{\chi^2(\theta)}{2}\right)
+\label{eq:classical_likelihood}
+\end{equation}
+
+where the $\chi^2$ statistic is defined as:
+
+\begin{equation}
+\chi^2(\theta) = \sum_i \frac{[D_i - M_i(\theta)]^2}{\sigma_i^2}
+\label{eq:chi_squared}
+\end{equation}
+
+Here, $D_i$ are the observed data points, $M_i(\theta)$ is the model prediction for parameters $\theta$, and $\sigma_i$ are the measurement uncertainties.
+
+The exponential form in Eq.~\eqref{eq:classical_likelihood} produces a smooth, continuous probability distribution. While mathematically convenient, this formulation has two key limitations: (1) it obscures sharp boundaries in parameter space, and (2) it assumes that all deviations from the best fit should be weighted exponentially.
+
+\subsection{The Besemer Switch Function}
+
+We propose replacing the soft likelihood function with a binary switch function:
+
+\begin{equation}
+P(\theta) = \Theta\left(\beta \cdot \|D - M(\theta)\|^{-1} - S\right)
+\label{eq:switch_function}
+\end{equation}
+
+where:
+\begin{itemize}
+\item $\Theta(x)$ is the Heaviside step function: $\Theta(x) = 1$ for $x \geq 0$ and $\Theta(x) = 0$ for $x < 0$
+\item $\beta$ is an amplification factor (we use $\beta = 296$)
+\item $\|D - M(\theta)\|$ is the $L^2$ norm of the residual vector
+\item $S$ is a threshold parameter
+\end{itemize}
+
+The key insight is the inverse relationship: as the residual approaches zero (perfect agreement), the amplified term $\beta/\|r\|$ diverges, ensuring the switch activates. Conversely, large residuals produce small amplified values, keeping the switch off.
+
+\subsection{Mathematical Properties}
+
+The switch function has several important properties:
+
+\begin{enumerate}
+\item \textbf{Binary Output}: $P(\theta) \in \{0, 1\}$, providing unambiguous classification of parameter sets.
+
+\item \textbf{Amplification}: The factor $\beta$ controls sensitivity. Larger $\beta$ values require closer agreement for switch activation.
+
+\item \textbf{Threshold}: The parameter $S$ sets the boundary between resonance and dissonance.
+
+\item \textbf{Limit Behavior}:
+\begin{equation}
+\lim_{\|r\| \to 0} \beta/\|r\| = \infty \implies P(\theta) = 1
+\end{equation}
+\begin{equation}
+\lim_{\|r\| \to \infty} \beta/\|r\| = 0 \implies P(\theta) = 0
+\end{equation}
+\end{enumerate}
+
+\subsection{Geometric Interpretation}
+
+Rather than interpreting $P(\theta)$ as a probability, we interpret it as an indicator function for a solution manifold $\mathcal{M}$:
+
+\begin{equation}
+\mathcal{M} = \{\theta \in \Theta : P(\theta) = 1\}
+\label{eq:manifold}
+\end{equation}
+
+This manifold represents the set of all parameter values that are consistent with the data at the specified amplification and threshold. The geometry of $\mathcal{M}$ (point, line, ring, surface) encodes information about parameter degeneracies and constraints.
+
+\subsection{Comparison with Classical Approach}
+
+Table~\ref{tab:comparison} summarizes the key differences between classical MCMC and our binary switch approach.
+
+\begin{table}[h]
+\centering
+\caption{Comparison of classical MCMC and binary switch methods.}
+\label{tab:comparison}
+\begin{tabular}{lcc}
+\hline\hline
+Property & Classical MCMC & Binary Switch \\
+\hline
+Likelihood & Soft Gaussian & Sharp binary \\
+Method & Random walk & Grid scan \\
+Latency & Burn-in required & Latency-free \\
+Output & Probability cloud & Geometric structure \\
+Interpretation & "Probably here" & "Exists here" \\
+Uncertainty & Error bars & Manifold shape \\
+\hline\hline
+\end{tabular}
+\end{table}
+
+\subsection{The Dipole Hypothesis}
+
+For the Hubble tension specifically, we hypothesize that the two measured values ($H_0^{\text{Planck}} = 67.4$ and $H_0^{\text{SN}} = 73.0$) represent two poles of a dipole structure in parameter space. Rather than being contradictory, both values are real and valid in their respective measurement contexts:
+
+\begin{itemize}
+\item \textbf{Planck pole}: Global, early-universe context
+\item \textbf{Supernova pole}: Local, late-universe context
+\end{itemize}
+
+If this hypothesis is correct, both parameter sets should activate the switch function in their respective contexts, and the solution manifolds should reveal a geometric relationship between the two poles.
