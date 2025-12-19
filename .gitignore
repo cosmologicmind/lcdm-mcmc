@@ -28,7 +28,8 @@ wheels/
 *.ipynb
 
 # Results & Output (LARGE FILES - regenerate locally)
-results/
+results/*
+!results/README.md
 plots/
 *.png
 *.jpg
